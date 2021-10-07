@@ -51,7 +51,7 @@ const Review = () => {
          <div className="cart-container">
             <Cart cart={cart}>
                <button className="main-button" onClick={handlePlaceOrder}>
-                  Place Order
+                  Proceed Checkout
                </button>
             </Cart>
          </div>
