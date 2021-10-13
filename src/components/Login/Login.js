@@ -13,6 +13,7 @@ import {
 } from 'firebase/auth';
 import { useState } from 'react';
 import { UserContext } from '../../App.js';
+import { useHistory, useLocation } from 'react-router';
 
 function Login() {
    const initialState = {
@@ -27,6 +28,11 @@ function Login() {
 
    //context api
    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
+   //For redirecting after logged in
+   let history = useHistory();
+   let location = useLocation();
+   let { from } = location.state || { from: { pathname: '/' } };
 
    const [user, setUser] = useState(initialState);
    const [newUser, setNewUser] = useState(false);
@@ -106,6 +112,7 @@ function Login() {
             .then(() => {
                setUser({ ...user, error: '', success: true });
                setLoggedInUser({ ...user, error: '', success: true });
+               history.replace(from);
             })
             .catch(error => {
                setUser({ ...user, error: error.message, success: false });
